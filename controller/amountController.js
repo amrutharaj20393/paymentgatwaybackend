@@ -26,7 +26,7 @@ exports.paymentController = async (req, res) => {
            /// success_url: "https://medstore-frontend-o7dr.vercel.app/payment-success",
            //// cancel_url: "https://medstore-frontend-o7dr.vercel.app/payment-error",
 
-            success_url: "https://paymentgatewayfrontend-27bs.vercel.app//payment-success",
+            success_url: "https://paymentgatewayfrontend-6i8n.vercel.app/payment-success",
            
         });
 
