@@ -1,6 +1,6 @@
 const blogusers = require("../models/usermodel")
 const jwt = require('jsonwebtoken')
-
+const bcrypt = require('bcrypt')
 exports.registerController = async (req, res) => {
 
     const { username, email, password } = req.body
@@ -12,8 +12,10 @@ exports.registerController = async (req, res) => {
             res.status(400).json('User Already exist')
         }
         else {
+            const hashedpswd = await bcrypt.hash(password, 10)
+            console.log(hashedpswd)
             const newuser = new blogusers({
-                username, email, password
+                username, email, password:hashedpswd
             })
             await newuser.save()
             res.status(200).json(newuser)
@@ -28,11 +30,15 @@ exports.registerController = async (req, res) => {
 
 exports.loginController = async (req, res) => {
     const { email, password } = req.body
-    console.log(email, password)
+   // console.log(email, password)
     try {
         const existinguser = await blogusers.findOne({ email })
+        console.log(existinguser)
+         
         if (existinguser) {
-            if (existinguser.password == password) {
+             const existingPassword = await bcrypt.compare(password, existinguser.password)
+            console.log(existingPassword)
+            if (existingPassword == true) {
                 const token = jwt.sign({ userMail: existinguser.email }, 'secretkey')
                 res.status(200).json({ existinguser, token })
             }
