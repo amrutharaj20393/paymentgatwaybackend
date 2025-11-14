@@ -24,6 +24,7 @@ amountServer.use(cors())
 //parse json data from frontend.its middleware(it break request response cycle).
 amountServer.use(express.json())
 amountServer.use(route)
+amountServer.use('/serverupload',express.static('./uploads'))
 
 //port creation
 PORT = 5000 || process.env.PORT
