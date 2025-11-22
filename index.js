@@ -27,7 +27,7 @@ amountServer.use(route)
 amountServer.use('/serverupload',express.static('./uploads'))
 
 //port creation
-PORT = 5000 || process.env.PORT
+PORT = 3000 || process.env.PORT
 
 amountServer.listen(PORT, () => {
     console.log(`server running at ${PORT}`)
