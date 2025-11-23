@@ -37,6 +37,12 @@ route.post('/amazonrpassword', amazonuserController.loginpasswordController)
 route.get('/amazonallProduct', amazonProductController.productController)
 route.post('/cart', amazonProductController.cartController)
 route.get('/getCart', amazonProductController.getcartController)
-
+//path to delete medicine
+route.delete('/deleteitem/:id',amazonProductController.deleteItemController)
+route.put('/updatequantity',amazonProductController.quantityUpdateItemController)
+route.put('/updateorderStatus',amazonProductController.updateorderStatusController)
+//path for google login
+route.post('/GoogleRegister', amazonuserController.googleLoginController)
+route.get('/orderlist', amazonProductController.orderListController)
 
 module.exports = route

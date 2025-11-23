@@ -29,6 +29,36 @@ exports.registerController = async (req, res) => {
 
 }
 
+exports.googleLoginController = async (req, res) => {
+    const { username, email, password } = req.body
+    console.log(username, email, password)
+    try {
+
+        const existinguser = await amazonusers.findOne({ email })
+        if (existinguser) {
+            //token creation
+            const token = jwt.sign({ userMail: existinguser.email }, 'secretkey')
+            res.status(200).json({ existinguser, token })
+
+
+        }
+        else {
+
+            //register new user for google login user
+            const newuser = new amazonusers({
+                username, email, password
+            })
+            await newuser.save()
+            const token = jwt.sign({ userMail: newuser.email }, 'secretkey')
+            await newuser.save()
+            res.status(200).json({ existinguser: newuser, token })
+        }
+
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
 exports.loginController = async (req, res) => {
     const { email } = req.query;
    console.log(email)

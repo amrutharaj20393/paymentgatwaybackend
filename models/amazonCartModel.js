@@ -39,7 +39,16 @@ const cartSchema = new mongoose.Schema({
     pid:{
          type: Number,
        required: true
-    }
+    },
+    status:{
+          type: String,
+        default: "Added"
+     }
+
+//      orderDate: {
+//     type: Date,
+//     default: null     // add when ordering
+//   }
 
 })
 
