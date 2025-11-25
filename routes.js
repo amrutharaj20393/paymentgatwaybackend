@@ -44,5 +44,7 @@ route.put('/updateorderStatus',amazonProductController.updateorderStatusControll
 //path for google login
 route.post('/GoogleRegister', amazonuserController.googleLoginController)
 route.get('/orderlist', amazonProductController.orderListController)
+route.get('/getaproduct/:id',amazonProductController.getAProductController)
+route.post('/updateproductquantity', amazonProductController.updateCartInProductController)
 
 module.exports = route

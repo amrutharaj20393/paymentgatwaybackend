@@ -38,6 +38,7 @@ exports.googleLoginController = async (req, res) => {
         if (existinguser) {
             //token creation
             const token = jwt.sign({ userMail: existinguser.email }, 'secretkey')
+            console.log(token)
             res.status(200).json({ existinguser, token })
 
 

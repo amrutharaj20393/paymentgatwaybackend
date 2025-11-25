@@ -109,7 +109,7 @@ exports.quantityUpdateItemController = async (req, res) => {
 
 
                 await cartlists.findOneAndUpdate(
-                    { _id: id, email, status: "Added" },      // ensure correct user
+                    { _id: id, email, status: "Added" },
                     { quantity: qty }, { new: true }
                 );
                 return res.status(200).json({ message: "All quantities updated successfully" });
@@ -134,8 +134,8 @@ exports.quantityUpdateItemController = async (req, res) => {
 exports.updateorderStatusController = async (req, res) => {
     try {
         const { email } = req.body;
-console.log("hai")
-console.log(email)
+        console.log("hai")
+        console.log(email)
         // Update all cart items of the user from "Added" to "Ordered"
         const result = await cartlists.updateMany(
             { email, status: "Added" },
@@ -179,9 +179,64 @@ exports.orderListController = async (req, res) => {
         return res.status(500).json(error)
     }
 
+}
 
+exports.getAProductController = async (req, res) => {
+    try {
+        console.log("hai")
+        const { id } = req.params
+        console.log(id)
+        const amedicine = await productlist.findOne({ _id: id })
+        res.status(200).json(amedicine)
+
+
+    } catch (error) {
+        res.status(500).json(error)
+    }
+
+}
+
+exports.updateCartInProductController = async (req, res) => {
+    console.log("hai product")
+    console.log(req.body)
+    try {
+
+
+        const { _id, name, brand, description, image, price, rating, category, reviews, pid } = req.body.data
+        const { email } = req.body
+        const { quantities } = req.body
+        console.log(_id, name, brand, description, image, price, rating, category, reviews, pid, email)
+        console.log(quantities)
+        // Check if same product already exists for this email
+        const value = Object.values(quantities)[0];
+        console.log(value); 
+        const alreadyAdded = await cartlists.findOne({ email, pid, status: "Added" })
+        console.log(alreadyAdded)
+        if (alreadyAdded) {
+            return res.status(400).json("Already Added to cart") // <-- Return stops execution
+        }
+        else {
+            console.log('hh')
+
+            // Add new item
+            const newCartItem = new cartlists({
+                name, brand, description, image, price, rating, category, reviews, email, pid,quantity: value ,status: "Added" 
+            });
+
+         await newCartItem.save();
+
+            return res.status(200).json(newCartItem);
+        }
+
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(error)
+    }
 
 
 
 
 }
+
+
