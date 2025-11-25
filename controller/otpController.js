@@ -14,13 +14,13 @@ exports.otpamazonController = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "amrutharaj010@gmail.com",
+        user: "amrutharaj20393@gmail.com",
         pass: "mvdf mbyr vvdi mrpo",
       },
     });
 
     await transporter.sendMail({
-      from: "amrutharaj010@gmail.com",
+      from: "amrutharaj20393@gmail.com",
       to: email,
       subject: "Your OTP Code",
       text: `Your OTP is: ${otp}`,
