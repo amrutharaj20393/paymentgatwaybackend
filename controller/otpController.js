@@ -1,6 +1,8 @@
 
 const nodemailer = require("nodemailer");
 const amazonusers = require("../models/amazonuserModel")
+const dotenv = require('dotenv')
+dotenv.config()
 exports.otpamazonController = async (req, res) => {
   //console.log("hau")
   //  const email = req.query.email
@@ -14,8 +16,8 @@ exports.otpamazonController = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "amrutharaj20393@gmail.com",
-        pass: "mvdf mbyr vvdi mrpo",
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
       },
     });
 
