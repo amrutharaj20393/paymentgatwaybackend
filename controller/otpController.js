@@ -15,7 +15,7 @@ exports.otpamazonController = async (req, res) => {
       service: "gmail",
       auth: {
         user: "amrutharaj010@gmail.com",
-        pass: "cvld itql rjxq dpoy",
+        pass: "mvdf mbyr vvdi mrpo",
       },
     });
 
